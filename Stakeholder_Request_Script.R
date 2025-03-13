@@ -37,14 +37,14 @@ forex_vat_dkk <- forex_dkk/1.19*1.25
 {
 # LOAD data ====
 #* get the list of Stakeholder request articles from gSheets ====
-data_stakeholder_request_original <- read_sheet("https://docs.google.com/spreadsheets/d/1iGUZd_WgkPNp7EjfZyUTuAe_oBiMJ6N2uC2y2qGM-sU/edit#gid=0",sheet = "Request", col_types = "cnncDDcccccnc")
+data_stakeholder_request_original <- read_sheet("https://docs.google.com/spreadsheets/d/1iGUZd_WgkPNp7EjfZyUTuAe_oBiMJ6N2uC2y2qG",sheet = "Request", col_types = "cnncDDcccccnc")
 data_stakeholder_request_original <- data_stakeholder_request_original %>% 
   mutate(min_price = round(min_price, 2)) %>%
   mutate(max_price = round(max_price, 2))
 #* remove inactive requests ====
 data_stakeholder_request <- data_stakeholder_request_original %>% filter(valid_from <= today(), valid_to >=today() | is.na(valid_to))
 #* get stakeholder requests already in production
-data_stakeholder_last <- read_sheet("https://docs.google.com/spreadsheets/d/1iGUZd_WgkPNp7EjfZyUTuAe_oBiMJ6N2uC2y2qGM-sU/edit?pli=1#gid=1624728521",sheet = "in production", col_types = "cnncDDcccccccccnnD")
+data_stakeholder_last <- read_sheet("https://docs.google.com/spreadsheets/d/1iGUZd_WgkPNp7EjfZyUTuAe_oBiMJ6N2uC2y2qGM-sU/edit?pli=1#gid=16780",sheet = "in production", col_types = "cnncDDcccccccccnnD")
 data_stakeholder_last <- data_stakeholder_last %>% 
   mutate(min_price = round(min_price, 2)) %>%
   mutate(max_price = round(max_price, 2)) %>% 
@@ -56,7 +56,7 @@ data_pricing_min_max <- data_pricing_min_max %>%
   mutate(max_price = round(max_price, 2))                                      
 data_pricing_fixed <- getFixPricesReason(sc_properties = sc_properties,product_numbers = data_stakeholder_request$product_number)
 #* get the archive from the stakeholder requests file
-data_stakeholder_request_archive <- read_sheet("https://docs.google.com/spreadsheets/d/1iGUZd_WgkPNp7EjfZyUTuAe_oBiMJ6N2uC2y2qGM-sU/edit#gid=515728761",sheet = "archive", col_types = "cnncDDcccccnc")
+data_stakeholder_request_archive <- read_sheet("https://docs.google.com/spreadsheets/d/1iGUZd_WgkPNp7EjfZyUTuAe_oBiMJ6N2uC2y2qGM-sU/edit#gid=51572",sheet = "archive", col_types = "cnncDDcccccnc")
 data_stakeholder_request_archive <- data_stakeholder_request_archive %>% 
   mutate(min_price = round(min_price, 2)) %>%
   mutate(max_price = round(max_price, 2))
